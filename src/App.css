@@ -12,3 +12,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.sok{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+}
