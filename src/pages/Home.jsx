@@ -1,10 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import History from '../components/History'
 
 export default function Home(){
     const [search, setSearch] = useState()
+    const storedHistory = localStorage.getItem("search")
+    const [history, setHistory] = useState(storedHistory ? JSON.parse(storedHistory) : [])
+    const [focused, setFocused] = useState(false)
+    
+    console.log("denne kommer fra storage", storedHistory)
 
-    const baseUrl = `http://www.omdbapi.com/?apikey=${import.meta.env.VITE_API_KEY}` //${import.meta.env.API_KEY}
-    //const apiKey = 'bcc5620f' <-- IGNORE --!>
+    const baseUrl = `http://www.omdbapi.com/?apikey=${import.meta.env.VITE_API_KEY}` 
+
+    useEffect(()=>{
+        localStorage.setItem("search", JSON.stringify(history))
+    },[history])
 
     const getFilms = async()=>{
         try{
@@ -19,20 +28,29 @@ export default function Home(){
 
     const handleChange = (e)=>{
         setSearch(e.target.value)
-        coonsole.log(e.target.value)
+        //console.log(e.target.value)
     }
+
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+        e.target.reset()
+        
+        setHistory((prev) => [...prev, search])
+    }
+    console.log(history)
 
     return(
         <main>
             <h1>Forside</h1>
-            <form>
-                <label htmlFor="filmsok" className="sok">
-                    Søk etter film: <br/>
+            <form onSubmit={handleSubmit} className="sok">
+                <label htmlFor="filmsok">
+                    Søk etter film:
                     <input type="search" placeholder="Lord of the Rings"
-                    onChange={handleChange} />
+                    onChange={handleChange} onFocus={()=>setFocused(true)} /* onBlur={()=>setFocused(false)} */ />
                 </label>
+                { focused ? <History history={history} setSearch={setSearch} /> : null }
+                <button onClick={getFilms}>🔍︎ Søk</button>
             </form>
-            <button onClick={getFilms}>Søk</button>
         </main>
     )
 }

@@ -16,6 +16,7 @@
 .sok{
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  text-align: left;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
 }
