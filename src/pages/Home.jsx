@@ -105,3 +105,5 @@ Link til Gemini-samtale der jeg spurte om hjelp til søke-funskjon:
 https://gemini.google.com/share/c22fec3b27e1
 
 */
+
+//https://stackoverflow.com/questions/74493759/drop-down-search-bar-on-click-with-history 
