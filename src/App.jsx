@@ -16,3 +16,8 @@ function App() {
 }
 
 export default App
+
+/* 
+Link til inspirasjon for design(CSS): 
+https://www.youtube.com/watch?v=hOEnZDU1M9Q&t=2548s
+*/

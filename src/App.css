@@ -1,40 +1,112 @@
+body{
+  margin: 0;
+}
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
+  width: 100%;
+}
+main{
+  margin: 0 auto;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.form-in{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: inline-block;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 2rem;
 }
 
 .sok{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 0.5rem;
+  position: relative;
+  width: 900px;
+}
+
+#sokefelt{
+  border: none; 
+  appearance: none;
+  background: #f2f2f2;
+  color: #222222;
+  padding: 12px;
+  border-radius: 3px;
+  width: 250px;
+  outline: none;
+}
+.historikk{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #f2f2f2;
+  border: 1px solid #cccccc;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.historikk-valg{
+  padding: 10px;
+  cursor: pointer;
+}
+.historikk-valg:hover{
+  background: #f0f0f0;
 }
 
 .movie-list{
   display: grid;
-  grid-template-columns: repeat(5, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  max-width: 1280px;
+  margin-inline: auto;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .film-card{
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  aspect-ratio: 2/3;
+}
+.film-card:hover{
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+.film-card img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card-overlay{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+  padding: 20px 15px 15px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.film-card:hover .card-overlay{
+  opacity: 1;
+}
+.card-title{
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+.card-info{
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-top: 2rem;
-
-  img{
-    width: 100%;
-    height: fit-content;
-  }
+  justify-content: flex-start;
+  color: #d2d2d2;
+  font-size: 0.85rem;
+  gap: 15px;
 }

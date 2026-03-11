@@ -3,8 +3,10 @@ export default function FilmCard({ item }){
     return(
         <article className="film-card">
             <img src={Poster} alt={Title} />
-            <h3>{Title}</h3>
-            <p>Year: {Year}</p>
+            <section className="card-overlay">
+                <h3 className="card-title">{Title}</h3>
+                <p className="card-info">{Year}</p>
+            </section>
         </article>
     )
 }

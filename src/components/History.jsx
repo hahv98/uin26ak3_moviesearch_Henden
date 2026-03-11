@@ -3,8 +3,8 @@ export default function History({history, setSearch}){
         setSearch(e.target.value)
     }
    return(
-        <select onChange={handleChange}>
-            {history?.map((item, i) => <option key={i} value={item}>⟲ {item}</option>)}
+        <select onChange={handleChange} className="historikk hidden">
+            {history?.map((item, i) => <option className="historikk-valg" key={i} value={item}>⟲ {item}</option>)}
         </select>
     )
 }
