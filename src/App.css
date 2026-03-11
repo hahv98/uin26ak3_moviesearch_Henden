@@ -20,3 +20,21 @@
   flex-wrap: nowrap;
   gap: 0.5rem;
 }
+
+.movie-list{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.film-card{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 2rem;
+
+  img{
+    width: 100%;
+    height: fit-content;
+  }
+}

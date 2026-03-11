@@ -1,8 +1,5 @@
-import { useParams } from "react-router-dom"
-
-export default function Movie({ film }){
-    const { movie } = useParams()
-    const {Title, Poster, Year} = film
+export default function FilmCard({ item }){
+    const {Title, Poster, Year} = item
     return(
         <article className="film-card">
             <img src={Poster} alt={Title} />
