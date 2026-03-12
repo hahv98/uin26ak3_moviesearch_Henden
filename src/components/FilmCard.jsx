@@ -10,3 +10,4 @@ export default function FilmCard({ item }){
         </article>
     )
 }
+/* Et komponent for å kjøre ut kortene som vises på Home page, og fungerer som overgang til Movie pagen. */

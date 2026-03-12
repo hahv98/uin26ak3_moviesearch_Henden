@@ -10,14 +10,9 @@ function App() {
   return (
     <Routes>
       <Route index element={<Home />} />
-      <Route path=":movie" element={<Movie />} />
+      <Route path="/:imdbID" element={<Movie />} />
     </Routes>
   )
 }
 
 export default App
-
-/* 
-Link til inspirasjon for design(CSS): 
-https://www.youtube.com/watch?v=hOEnZDU1M9Q&t=2548s
-*/

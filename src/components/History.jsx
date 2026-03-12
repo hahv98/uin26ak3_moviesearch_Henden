@@ -3,8 +3,12 @@ export default function History({history, setSearch}){
         setSearch(e.target.value)
     }
    return(
-        <select onChange={handleChange} className="historikk hidden">
-            {history?.map((item, i) => <option className="historikk-valg" key={i} value={item}>⟲ {item}</option>)}
-        </select>
+        <ul onChange={handleChange} className="dropdown"> {/* Endret fra select til ul, mer samarbeidsvillig liste */}
+            {history?.map((item, i) => <li className="historikk-valg" key={i} onMouseDown={()=>{
+                setSearch(item)
+                getFilms()
+            }}>{item}</li>)}
+        </ul>
     )
 }
+/* Hjelp til endring av søkehistorikk: https://gemini.google.com/share/56bc5b5dd5ab */

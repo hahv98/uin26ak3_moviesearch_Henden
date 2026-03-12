@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import History from '../components/History'
 import FilmCard from '../components/FilmCard'
+import { Link } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 export default function Home(){
     const [search, setSearch] = useState()
@@ -23,7 +25,7 @@ export default function Home(){
         if(!search) return
 
         try{
-            setFilm([])
+            setFilm([]) //Tømmer arrayet før nytt søk gjennomføres, forhindrer at noe data kan bli igjen ved neste søk.
             const response = await fetch(`${baseUrl}&s=${search}`)
             const data = await response.json()
             if(data.Search){
@@ -41,7 +43,7 @@ export default function Home(){
     useEffect(()=>{
         const startDisplay = async()=>{
             try{
-                const response = await fetch(`${baseUrl}&s=James+Bond`)
+                const response = await fetch(`${baseUrl}&s=James+Bond&type=movie`)
                 const data = await response.json()
 
                if(data.Search){
@@ -62,11 +64,14 @@ export default function Home(){
         setSearch(e.target.value)
     }
 
+    const minLength = 3 
     const handleSubmit = (e)=>{
         e.preventDefault() // forhindrer at siden refresher ved submit
         setFocused(false)
         
-        if(!search) return // hvis search er tom, gjør ingenting (forhindrer at tomme søk legges til i history)
+        if(!search || search.trim().length < minLength) return 
+        /* hvis search er tom, gjør ingenting (forhindrer at tomme søk legges til i history)
+        Forhindrer også søket i å bli gjennomført før minLength på 3 tegn er oppnådd */
         if(search && !history.includes(search)){
             setHistory((prev) => [...prev, search])
         }
@@ -78,20 +83,30 @@ export default function Home(){
     return(
         <main>
             <section className="form-in">
-                <h1>Forside | OMDb API - The Open Movie Database</h1>
+                <Navbar />
                 <form onSubmit={handleSubmit} className="sok">
-                    <label htmlFor="filmsok">
-                        Søk etter film:
-                    </label>
-                    <input type="search" placeholder="James Bond" id="sokefelt" value={search || ''}
-                        onChange={handleChange} onFocus={()=>setFocused(true)} /* onBlur={()=>setFocused(false)} */ />
-                    { focused ? <History history={history} setSearch={setSearch} /> : null }
-                    <button onClick={getFilms}>🔍︎ Søk</button>
+                    <label htmlFor="filmsok">Søk etter film:</label>
+                    <section className="sok-in">
+                        <input 
+                            type="search" 
+                            placeholder="James Bond" 
+                            id="sokefelt" 
+                            value={search || ''}
+                            onChange={handleChange} 
+                            onFocus={()=>setFocused(true)} 
+                            onBlur={()=> setTimeout(()=>setFocused(false), 200)} 
+                            required
+                        />
+                        {focused ? <History history={history} setSearch={setSearch} /> : null}
+                        {/* { focused ? <History history={history} setSearch={setSearch} /> : null } */}
+                    </section>
+                    <button type="submit">🔍︎ Søk</button> 
+                    {/* Fjernet onClick, siden jeg puttet button inne i form, så kjøres handleSubmit istedenfor */}
                 </form>
             </section>
             <section className="movie-list">
                 {/* mapper ut filmene i søk-arrayet, hvert søk returnerer max 10, så displayet er 10 */}
-                {film?.map((item) => (<FilmCard key={item.imdbID} item={item} />))} 
+                {film?.map((item) => (<Link key={item.imdbID} to={`/${item.imdbID}`}><FilmCard item={item} /></Link>))} 
             </section>
         </main>
     )
@@ -104,6 +119,6 @@ https://gemini.google.com/share/190a8b37b916
 Link til Gemini-samtale der jeg spurte om hjelp til søke-funskjon:
 https://gemini.google.com/share/c22fec3b27e1
 
+Link til Gemini-samtale for hjelp av funksjonalitet og design av søkefelt og historikk:
+https://gemini.google.com/share/56bc5b5dd5ab
 */
-
-//https://stackoverflow.com/questions/74493759/drop-down-search-bar-on-click-with-history 
